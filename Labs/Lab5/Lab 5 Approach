@@ -1,1 +1,2 @@
 Traverse the tree in-order recursively and add each node to a list, then check whether the list is in order.
+Alternatively, recursively go through every node in the tree, setting the max to the current value for left subtree and min the current value for right subtree. If any node falls outside this range, return false.
