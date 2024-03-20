@@ -1,0 +1,1 @@
+Traverse the tree in-order recursively and add each node to a list, then check whether the list is in order.

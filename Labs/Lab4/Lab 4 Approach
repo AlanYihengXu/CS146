@@ -1,0 +1,1 @@
+For every node, we swap the left and right child of that node. Thus, we can solve this recursively by starting at the root, swapping the left and right children of the node, then calling the function on those children until we reach null.
