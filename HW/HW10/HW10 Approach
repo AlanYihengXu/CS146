@@ -1,0 +1,2 @@
+We want to go through each layer of the tree and add each node of a layer to some list. Then, we add that list to an output list and loop through first list to add every child of the nodes in that list to a new list.
+We can do this by making a List and adding the root to it, then adding that List to a higher List. We then loop through that higher List, and for every List within that List we loop through the nodes and add the children of those nodes to a new List. Afterwards, we add the List created by that to the higher List. This repeats until there are no more children.
