@@ -1,0 +1,2 @@
+Change the color of the selected pixel, then for each of its four adjacent pixels check if they are the same color as this pixel's original color. If so, recursively call this function on those pixels and repeat.
+Additionally, if the original color is the same as the new color, no changes need to be made.
