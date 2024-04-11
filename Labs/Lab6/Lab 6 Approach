@@ -1,0 +1,3 @@
+Check if the graph is cyclic, if not you can finish all courses, if so then it is impossible
+If a course does not have any prerequisites, it can be taken. If it does, check if the prerequisite can be taken, and if so, this can be taken, if not, this cannot be taken. If there is a single false, the graph is cyclic.
+We can use BFS/DFS, and if we hit a visited node then it is cyclic. Also, if you cannot use topological sort on the graph, then it is cyclic.
