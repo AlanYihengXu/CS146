@@ -1,9 +1,26 @@
 Red-Black tree nodes need a reference pointer to their parent in order to recolor and rebalance.
 
-Rebalancing insert: If parent is black, don't need to do anything. If parent is red, check uncle. If uncle is also red, change parent and uncle to black and grandparent to red, then repeat process for grandparent. If grandparent is root then don't change to red. If uncle is black, then there are 4 cases: 
+Rebalancing insert: If parent is black, don't need to do anything. If parent is red, check uncle. 
+If uncle is also red, change parent and uncle to black and grandparent to red, then repeat process for grandparent. If grandparent is root then don't change to red. 
+If uncle is black, then there are 4 cases: 
 Case 1: If node is grandparent.left.left, right rotate grandparent then swap colors of parent and grandparent.
 Case 2: If node is grandparent.left.right, left rotate parent then apply Case 1 on parent.
 Case 3: If node is grandparent.right.right, left rotate grandparent then swap colors of parent and grandparent.
 Case 4: If node is grandparent.right.left, right rotate parent then apply Case 3 on parent.
 
-Rebalancing delete: If the deleted node has 2 children, swap its value with its successor and delete the successor, which only has 1 or no children. If the node only has 1 child, replace it with its child and color it black. If the deleted node has no children and is the root or is red, just remove it. If the deleted node is a non-root black leaf node, 
+Rebalancing delete: If the deleted node has 2 children, swap its value with its successor and delete the successor, which only has 1 or no children. If the node only has 1 child, replace it with its child and color it black. If the deleted node has no children and is the root or is red, just remove it. If the deleted node is a non-root black leaf node, check sibling.
+If sibling is red, there are 2 cases:
+Case 1: If sibling is left child, right rotate parent and swap colors of parent and sibling, then repeat check with new sibling.
+Case 2: If sibling is right child, left rotate parent and swap colors of parent and sibling, then repeat check with new sibling.
+If sibling is black and both sibling's children are black, recolor sibling to red and parent to black. If parent is already black, repeat sibling check for parent.
+If sibling is black and at least one of sibling's children is red, there are 4 cases:
+Case 1: If sibling is left child and sibling's left child or both children are red, make sibling's left child black, right rotate parent, and swap colors of parent and sibling.
+Case 2: If sibling is left child and sibling's right child is red, swap colors of sibling and sibling's right child, left rotate sibling, then apply Case 1.
+Case 3: If sibling is right child and sibling's right child or both children are red, make sibling's right child black, left rotate parent, and swap colors of parent and sibling.
+Case 4: If sibling is right child and sibling's left child is red, swap colors of sibling and sibling's left child, right rotate sibling, then apply Case 3.
+
+Real life applications: Most self-balancing BST library functions, CPU Scheduling Linux, K-mean clustering algorithm, MySQL, game engines, many graph algorithms, etc.
+
+Advantages: Always O(log n), self-balancing, efficient performance and versatility, relatively easy to understand
+
+Shortcomings: Extra storage in each node for color and complex to implement

@@ -36,6 +36,7 @@ public class RedBlackTree<E extends Comparable<E>> {
             if (n == parent.left) parent.left = pivot;
             else parent.right = pivot;
         }
+        pivot.parent = parent;
         return pivot;
     }
 
@@ -52,6 +53,7 @@ public class RedBlackTree<E extends Comparable<E>> {
             if (n == parent.left) parent.left = pivot;
             else parent.right = pivot;
         }
+        pivot.parent = parent;
         return pivot;
     }
 
@@ -160,7 +162,9 @@ public class RedBlackTree<E extends Comparable<E>> {
                 if (current == current.parent.left) current.parent.left = null;
                 else current.parent.right = null;
             } else { // Non-root black node
-
+                rebalanceDelete(current);
+                if (current == current.parent.left) current.parent.left = null;
+                else current.parent.right = null;
             }
             return true;
         }
@@ -193,6 +197,59 @@ public class RedBlackTree<E extends Comparable<E>> {
             return true;
         }
         return false;
+    }
+
+    private void rebalanceDelete(Node current) {
+        if (current == root) {
+            return;
+        }
+        Node sibling = (current == current.parent.left) ? current.parent.right : current.parent.left;
+        if (sibling.color) { // Sibling is red
+            boolean temp = current.parent.color;
+            current.parent.color = sibling.color;
+            sibling.color = temp;
+            if (sibling == current.parent.left) { // Case 1
+                rotateRight(current.parent);
+            } else { // Case 2
+                rotateLeft(current.parent);
+            }
+            rebalanceDelete(current);
+        } else if ((sibling.left == null || !sibling.left.color) && (sibling.right == null || !sibling.right.color)) { // Both sibling's children are black
+            sibling.color = true;
+            if (current.parent.color) {
+                current.parent.color = false;
+            } else {
+                rebalanceDelete(current.parent);
+            }
+        } else { // At least one of sibling's children is red
+            if (sibling == current.parent.left && sibling.left != null && sibling.left.color) { // Case 1
+                sibling.left.color = false;
+                boolean temp = current.parent.color;
+                current.parent.color = sibling.color;
+                sibling.color = temp;
+                rotateRight(current.parent);
+            } else if (sibling == current.parent.left) { // Case 2
+                boolean temp = sibling.right.color;
+                sibling.right.color = sibling.color;
+                sibling.color = temp;
+                rotateLeft(sibling);
+
+                rebalanceDelete(current);
+            } else if (sibling == current.parent.right && sibling.right != null && sibling.right.color) { // Case 3
+                sibling.right.color = false;
+                boolean temp = current.parent.color;
+                current.parent.color = sibling.color;
+                sibling.color = temp;
+                rotateLeft(current.parent);
+            } else { // Case 4
+                boolean temp = sibling.left.color;
+                sibling.left.color = sibling.color;
+                sibling.color = temp;
+                rotateRight(sibling);
+
+                rebalanceDelete(current);
+            }
+        }
     }
 
     public boolean contains(E element) {
@@ -254,8 +311,6 @@ public class RedBlackTree<E extends Comparable<E>> {
         tree.delete(23);
         System.out.println(tree.inOrder());
         System.out.println(tree.levelOrder());
-        System.out.println(tree.contains(15));
-        System.out.println(tree.contains(23));
     }
 
 }
