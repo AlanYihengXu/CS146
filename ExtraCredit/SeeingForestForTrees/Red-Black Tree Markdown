@@ -1,0 +1,9 @@
+Red-Black tree nodes need a reference pointer to their parent in order to recolor and rebalance.
+
+Rebalancing insert: If parent is black, don't need to do anything. If parent is red, check uncle. If uncle is also red, change parent and uncle to black and grandparent to red, then repeat process for grandparent. If grandparent is root then don't change to red. If uncle is black, then there are 4 cases: 
+Case 1: If node is grandparent.left.left, right rotate grandparent then swap colors of parent and grandparent.
+Case 2: If node is grandparent.left.right, left rotate parent then apply Case 1 on parent.
+Case 3: If node is grandparent.right.right, left rotate grandparent then swap colors of parent and grandparent.
+Case 4: If node is grandparent.right.left, right rotate parent then apply Case 3 on parent.
+
+Rebalancing delete: If the deleted node has 2 children, swap its value with its successor and delete the successor, which only has 1 or no children. If the node only has 1 child, replace it with its child and color it black. If the deleted node has no children and is the root or is red, just remove it. If the deleted node is a non-root black leaf node, 
