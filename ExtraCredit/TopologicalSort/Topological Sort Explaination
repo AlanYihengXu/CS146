@@ -1,0 +1,11 @@
+Kahn's Algorithm is basically a BFS already, just with it keeping track of the indegrees of each vertex. Because that is required for topological sort, the BFS approach is identical to Kahn's Algorithm.
+For the DFS approach, it goes through all the vertexes in the graph and runs DFS on them, and if a vertex doesn't have an outgoing edge or all the vertices it points at have been added to the output stack, it gets added to the output stack.
+Sample input: the example graph from the topological sort slides, whose edge list is:
+1: 3
+2: 4
+3: 5, 6, 7
+4: 5, 6, 7
+5: 8
+6: 8
+7: 8
+8:

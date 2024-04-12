@@ -5,37 +5,7 @@ import java.util.LinkedList;
 
 public class TopologicalSort { // Graph representation using 2D ArrayList
     
-    private static boolean cyclicCheck(ArrayList<ArrayList<Integer>> graph) {
-        boolean[] visited = new boolean[graph.size()];
-        LinkedList<Integer> stack = new LinkedList<Integer>();
-        outer:
-        for (int i = 0; i < graph.size(); i++) {
-            if (graph.get(0) == null) {
-                continue;
-            }
-            for (int j = 0; j < graph.get(0).size();) {
-                stack.push(graph.get(i).get(j));
-                break outer;
-            }
-        }
-
-        while (!stack.isEmpty()) {
-            Integer current = stack.pop();
-            if (visited[current]) return false;
-            visited[current] = true;
-            for (Integer i : graph.get(current)) {
-                stack.push(i);
-            }
-        }
-
-        return true;
-    }
-    
     public static LinkedList<Integer> Kahn(ArrayList<ArrayList<Integer>> graph) throws Exception {
-        if (!cyclicCheck(graph)) {
-            throw new Exception("Graph is not a DAG");
-        }
-        
         LinkedList<Integer> output = new LinkedList<Integer>();
 
         int[] indegree = new int[graph.size()];
@@ -61,27 +31,74 @@ public class TopologicalSort { // Graph representation using 2D ArrayList
             }
         }
 
-        return output;
-    }
-
-    public static LinkedList<Integer> BFS(ArrayList<ArrayList<Integer>> graph) throws Exception { // Same thing as Kahn's algorithm
-        if (!cyclicCheck(graph)) {
-            throw new Exception("Graph is not a DAG");
+        for (int i : indegree) {
+            if (i != 0) throw new Exception("Graph is not a DAG");
         }
-        
-        LinkedList<Integer> output = new LinkedList<Integer>();
 
         return output;
     }
 
-    public static LinkedList<Integer> DFS(ArrayList<ArrayList<Integer>> graph) throws Exception {
-        if (!cyclicCheck(graph)) {
-            throw new Exception("Graph is not a DAG");
-        }
-        
+    public static LinkedList<Integer> BFSApproach(ArrayList<ArrayList<Integer>> graph) throws Exception { // Same thing as Kahn's algorithm
         LinkedList<Integer> output = new LinkedList<Integer>();
 
+        int[] indegree = new int[graph.size()];
+        for (ArrayList<Integer> a : graph) {
+            if (a == null) continue;
+            for (Integer i : a) {
+                indegree[i]++;
+            }
+        }
+        
+        LinkedList<Integer> queue = new LinkedList<Integer>();
+        for (int i = 0; i < graph.size(); i++) {
+            if (indegree[i] == 0) queue.add(i);
+        }
+
+        while (!queue.isEmpty()) {
+            Integer current = queue.pop();
+            if (graph.get(current) == null) continue;
+            output.add(current);
+            for (Integer i : graph.get(current)) {
+                indegree[i]--;
+                if (indegree[i] == 0) queue.add(i);
+            }
+        }
+
+        for (int i : indegree) {
+            if (i != 0) throw new Exception("Graph is not a DAG");
+        }
+
         return output;
+    }
+
+    public static LinkedList<Integer> DFSApproach(ArrayList<ArrayList<Integer>> graph) throws Exception {
+        LinkedList<Integer> output = new LinkedList<Integer>();
+
+        boolean[] added = new boolean[graph.size()];
+
+        for (int i = 0; i < graph.size(); i++) {
+            if (graph.get(i) == null || added[i]) {
+                continue;
+            }
+            boolean[] visited = new boolean[graph.size()];
+            if (!DFSRecurse(graph, added, visited, output, i)) throw new Exception("Graph is not a DAG");
+        }
+
+        return output;
+    }
+
+    private static boolean DFSRecurse(ArrayList<ArrayList<Integer>> graph, boolean[] added, boolean visited[], LinkedList<Integer> output, Integer i) {
+        boolean cyclicCheck = true;
+        if (visited[i]) cyclicCheck = false;
+        visited[i] = true;
+        for (Integer j : graph.get(i)) {
+            if (!added[j]) {
+                cyclicCheck = cyclicCheck && DFSRecurse(graph, added, visited, output, j);
+            }
+        }
+        added[i] = true;
+        output.push(i);
+        return cyclicCheck;
     }
 
     public static void main(String[] args) {
@@ -128,6 +145,18 @@ public class TopologicalSort { // Graph representation using 2D ArrayList
 
         try {
             System.out.println(TopologicalSort.Kahn(graph));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println(TopologicalSort.BFSApproach(graph));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            System.out.println(TopologicalSort.DFSApproach(graph));
         } catch (Exception e) {
             e.printStackTrace();
         }
