@@ -1,0 +1,1 @@
+First, remove all alphanumeric characters in the string, then have two pointers, one starting from the front and one from the back. The pointers compare with each other ignoring case and then move forward or backward respectively. If at any point they are different, it is not a palindrome, otherwise it is.
