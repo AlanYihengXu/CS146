@@ -1,0 +1,2 @@
+Have an array for each of the letters of the alphabet, then for every character in s increment the corresponding letter in the array.
+Then, go through every character in t and decrement the corresponding letter, and at the end if the array is all 0's it is an anagram.
