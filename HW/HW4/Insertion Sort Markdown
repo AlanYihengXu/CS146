@@ -1,0 +1,3 @@
+Whoops already did best/average/worst
+The best case for insertion sort is when the array is already sorted, in which case it will only iterate through once and be Θ(n) time.
+The average case and worst case are when the array is not sorted. Insertion sort takes an element and compares it to the elements before it until it is in the correct position, which takes Θ(n) time, and repeats this for every element for a total of Θ(n^2) time.
