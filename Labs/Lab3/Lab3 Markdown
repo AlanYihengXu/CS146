@@ -1,0 +1,8 @@
+Problem 1:
+1. n^3 is asymptotically greater because 10000000000n^2 vs n^3 => Θ(n^2) < Θ(n^3)
+2. n^2 log n is asymptotically greater because n^2 log n vs n (log n)^10 => n vs (log n)^9 => log n vs 9(log(log n)) => Θ(log n) > Θ(log(log n))
+3. 2^√n is asymptotically greater because n^log n vs 2^√n => (log n)^2 vs √n log 2 => 2 log(log n) vs 1/2 log n + log(log 2) => Θ(log(log n)) < Θ(log n)
+4. 2^(2n) is asymptotically greater because 2^n vs 2^(2n) => 2^n vs (2^n)^2 => Θ(2^n) < Θ((2^n)^2)
+
+Problem 2:
+Best, average, and worst case is Θ(√n) because i = 2, 3, 4, ..., k => k^2 = n => k = √n
