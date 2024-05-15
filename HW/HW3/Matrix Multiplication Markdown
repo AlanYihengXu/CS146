@@ -1,0 +1,2 @@
+Let n be the number of rows in A, m be the number of columns in A, and p be the number of columns in B.
+Matix multiplication uses nested loops where the outer loop runs n times, the middle loop runs m times within the outer loop, and the inner loop runs p times within the middle loop. So, the tome complexity of matix multiplication is Θ(n * m * p).
