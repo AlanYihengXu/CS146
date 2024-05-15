@@ -1,0 +1,1 @@
+Use a binary search, if bad version search left half otherwise right half.
