@@ -1,0 +1,2 @@
+Brute force solution: for each element, find if there are two more elements that with it add up to zero, then check if this solution was already in the output.
+Or, sort the array, for every element and for every second element, use a binary search to find a third element to add up to zero. If the two elements added together with the last element is < 0, it doesn't exist. When incrementing elements, skip if the same as the last element. If both elements are > 0, end because no more exist.
