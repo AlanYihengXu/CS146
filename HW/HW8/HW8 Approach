@@ -1,0 +1,2 @@
+Have an array counting the amount of each letter in the string.
+For every number in the array, if it is even, add number. If it is odd, add number for only the first odd, otherwise add number - 1.
