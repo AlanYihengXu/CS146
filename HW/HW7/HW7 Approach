@@ -1,0 +1,2 @@
+Have a list keeping track of current end times for each server and go through the list of intervals. 
+If the start time is greater than any current server's end time, set that server's end time to the new end time, otherwise, add a new server.
